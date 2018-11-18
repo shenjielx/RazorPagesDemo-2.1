@@ -1,0 +1,52 @@
+﻿@page "{handler?}"
+@model CreateModel
+@{
+	ViewData["Title"] = "Create Demo";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+	<div class="form-group">
+		<label asp-for="Input.Email"></label>
+		<input asp-for="Input.Email" class="form-control" placeholder="Enter email">
+		<span asp-validation-for="Input.Email" class="text-danger"></span>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model?.Input?.Items?.Count() > 0)
+			{
+				for (int i = 0; i < Model.Input.Items.Count; i++)
+				{
+					<tr>
+						<td>
+							<input asp-for="Input.Items[i].ID" readonly class="form-control" />
+						</td>
+						<td>
+							<input asp-for="Input.Items[i].Name" class="form-control" />
+							<span asp-validation-for="Input.Items[i].Name" class="text-danger"></span>
+						</td>
+						<td>
+							<input asp-for="Input.Items[i].Age" class="form-control" />
+						</td>
+						<td>
+							<button type="submit" role="button" class="btn btn-info btn-sm"
+									asp-page-handler="AddItem">Add Item</button>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+	<div class="form-group">
+		<button type="submit" asp-page-handler="" role="button" class="btn btn-danger">Submit</button>
+	</div>
+</form>
